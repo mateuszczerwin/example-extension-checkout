@@ -1,0 +1,10 @@
+{
+  "individual": "Particulier",
+  "business": "Entreprise",
+  "companyName": "Nom de l'entreprise",
+  "nip": "NIP",
+  "nipError": "NIP non valide",
+  "nipInvalidLength": "NIP non valide. Il doit comporter 10 chiffres.",
+  "nipInvalidControlNumber": "NIP non valide. Le numéro de contrôle est incorrect.",
+  "nipControlNumberMismatch": "NIP non valide. Le numéro de contrôle ne correspond pas."
+}
