@@ -1,3 +1,10 @@
 {
-  "welcome": "Welcome to the {{target}} extension!"
+  "individual": "Individual",
+  "business": "Business",
+  "companyName": "Company Name",
+  "nip": "NIP",
+  "nipError": "Invalid NIP",
+  "nipInvalidLength": "Invalid NIP. It should have 10 digits.",
+  "nipInvalidControlNumber": "Invalid NIP. Control number is incorrect.",
+  "nipControlNumberMismatch": "Invalid NIP. Control number does not match."
 }

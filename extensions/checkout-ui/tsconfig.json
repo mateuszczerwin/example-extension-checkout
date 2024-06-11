@@ -3,7 +3,18 @@
   // About the `react-jsx` tsconfig option, so IDE don't complain about missing react import
   // Changing options here won't affect the build of your extension
   "compilerOptions": {
-    "jsx": "react-jsx"
+    "target": "es5",
+    "module": "commonjs",
+    "strict": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "jsx": "react-jsx",
+    "lib": [
+      "es2015",
+      "dom"
+    ]
   },
   "include": ["./src"]
 }
