@@ -1,4 +1,4 @@
-import {useState, useEffect, useCallback} from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   reactExtension,
   Checkbox,
@@ -11,6 +11,7 @@ import {
 } from '@shopify/ui-extensions-react/checkout';
 import { validateNip } from '../utils/validateNip';
 import translations from '../locales/en.default.json';
+import { MetafieldNamespace, MetafieldKey, CustomerType } from '../utils/constants/index';
 
 export default reactExtension(
     'purchase.checkout.delivery-address.render-before',
@@ -28,11 +29,11 @@ function Extension() {
 
   useEffect(() => {
     const loadMetafiles = () => {
-      const customerType = metafields.find((field) => field.namespace === 'custom' && field.key === 'customer_type');
-      const companyNameField = metafields.find((field) => field.namespace === 'custom' && field.key === 'company_name');
-      const nipField = metafields.find((field) => field.namespace === 'custom' && field.key === 'nip');
+      const customerType = metafields.find(({ namespace, key }) => namespace === MetafieldNamespace.CUSTOM && key === MetafieldKey.CUSTOMER_TYPE);
+      const companyNameField = metafields.find(({ namespace, key }) => namespace === MetafieldNamespace.CUSTOM && key === MetafieldKey.COMPANY_NAME);
+      const nipField = metafields.find(({ namespace, key }) => namespace === MetafieldNamespace.CUSTOM && key === MetafieldKey.NIP);
 
-      if (customerType?.value === 'business') {
+      if (customerType?.value === CustomerType.BUSINESS) {
         setIsBusiness(true);
       }
 
@@ -51,7 +52,7 @@ function Extension() {
     if (metafields.length > 0) {
       loadMetafiles();
     }
-  }, []);
+  }, [metafields]);
 
   useEffect(() => {
     setNipError(nip ? validateNip(nip, translations) : '');
@@ -62,20 +63,20 @@ function Extension() {
 
     const metaFieldsToUpdate = [
       {
-        namespace: 'custom',
-        key: 'customer_type',
+        namespace: MetafieldNamespace.CUSTOM,
+        key: MetafieldKey.CUSTOMER_TYPE,
         valueType: 'string',
-        value: 'business',
+        value: CustomerType.BUSINESS,
       },
       companyName && {
-        namespace: 'custom',
-        key: 'company_name',
+        namespace: MetafieldNamespace.CUSTOM,
+        key: MetafieldKey.COMPANY_NAME,
         valueType: 'string',
         value: companyName,
       },
       !nipError && nip && {
-        namespace: 'custom',
-        key: 'nip',
+        namespace: MetafieldNamespace.CUSTOM,
+        key: MetafieldKey.NIP,
         valueType: 'string',
         value: nip,
       },
@@ -94,7 +95,7 @@ function Extension() {
 
   useEffect(() => {
     submitAdditionalInfo();
-  }, [isBusiness, companyName, nip, nipError]);
+  }, [isBusiness, companyName, nip, nipError, submitAdditionalInfo]);
 
   return (
       <BlockStack spacing="loose">

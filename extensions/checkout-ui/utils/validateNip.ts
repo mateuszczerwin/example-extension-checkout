@@ -1,4 +1,4 @@
-export const validateNip = (nip: string, translations: { [key: string]: string }) => {
+export const validateNip = (nip: string, translations: Record<string, string>) => {
 
     const nipRegex = /^[0-9]{10}$/;
 
@@ -7,11 +7,7 @@ export const validateNip = (nip: string, translations: { [key: string]: string }
     }
 
     const weights = [6, 5, 7, 2, 3, 4, 5, 6, 7];
-    let sum = 0;
-
-    for (let i = 0; i < 9; i++) {
-        sum += parseInt(nip[i]) * weights[i];
-    }
+    const sum = weights.reduce((acc, weight, index) => acc + weight * parseInt(nip[index]), 0);
 
     const controlNumber = sum % 11;
 
